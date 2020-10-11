@@ -8,6 +8,9 @@
 </head>
 <body>
 main.do <br>
-${date }
+${date } <br>
+<c:forEach items="${list }" var="map">
+	${map.idx } / ${map.title }<br>
+</c:forEach>
 </body>
 </html>
