@@ -5,6 +5,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.egovweb.main.service.MainService;
@@ -12,6 +13,9 @@ import com.egovweb.main.service.MainService;
 @Service
 public class MainSerivceImpl implements MainService {
 
+	@Autowired
+	MainDAO mainDAO;
+	
 	@Override
 	public List selectMainBoard() {
 		List list = new ArrayList();
@@ -23,6 +27,8 @@ public class MainSerivceImpl implements MainService {
 		map2.put("idx", "2");
 		map2.put("title", "제목2");
 		list.add(map2);
+		
+		list = mainDAO.selectMainBoard();
 		return list;
 	}
 
