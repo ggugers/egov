@@ -1,0 +1,2 @@
+톰캣실행 argument에 아래 행 추가
+-Dlog4jdbc.drivers=com.tmax.tibero.jdbc.TbDriver

@@ -8,8 +8,10 @@
     <!-- maxIdle          : IDLE 상태에 풀이 소유한 최대 커넥션 갯수 -->
     <!-- validationQuery  : IDEL 검증 쿼리 -->
     <bean id="dataSource" class="org.apache.commons.dbcp.BasicDataSource" destroy-method="close">
-        <property name="driverClassName" value="com.tmax.tibero.jdbc.TbDriver"/>
-		<property name="url" value="jdbc:tibero:thin:@127.0.0.1:8629:tibero" />
+        <!-- <property name="driverClassName" value="com.tmax.tibero.jdbc.TbDriver"/> -->
+        <!-- <property name="url" value="jdbc:tibero:thin:@127.0.0.1:8629:tibero" /> -->
+        <property name="driverClassName" value="net.sf.log4jdbc.DriverSpy"/>
+		<property name="url" value="jdbc:log4jdbc:tibero:thin:@127.0.0.1:8629:tibero" />
 		<property name="username" value="egovweb"/>
 		<property name="password" value="egovweb"/>
 		<property name="initialSize" value="10"/>
