@@ -12,6 +12,8 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import com.egovweb.board.service.BoardService;
 
+import egovframework.rte.ptl.mvc.tags.ui.pagination.PaginationInfo;
+
 @Controller
 public class BoardController {
 
@@ -19,10 +21,26 @@ public class BoardController {
 	BoardService boardService;
 	
 	@RequestMapping(value="/board/list.do")
-	public String boardList(Model model) throws Exception {
+	public String boardList(Model model, @RequestParam Map param) throws Exception {
 		
-		List list = boardService.boardList();
+		String pageNo = (String) param.get("pageNo");
+		if (pageNo == null || "".equals(pageNo)) {
+			pageNo = "1";
+		}
+		
+		//PaginationInfo에 필수 정보를 넣어 준다.
+		PaginationInfo paginationInfo = new PaginationInfo();
+		paginationInfo.setCurrentPageNo(Integer.parseInt(pageNo)); //현재 페이지 번호
+		paginationInfo.setRecordCountPerPage(3); //한 페이지에 게시되는 게시물 건수
+		paginationInfo.setPageSize(5); //페이징 리스트의 사이즈
+		paginationInfo.setTotalRecordCount(boardService.boardCount(param)); // 전제 게시물 수
+		
+		param.put("firstIndex", paginationInfo.getFirstRecordIndex());
+		param.put("recordCountPerPage", paginationInfo.getRecordCountPerPage());
+		
+		List list = boardService.boardList(param);
 		model.addAttribute("list", list);
+		model.addAttribute("paginationInfo", paginationInfo);
 		return "board/list";
 	}
 	

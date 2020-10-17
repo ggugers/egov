@@ -18,9 +18,15 @@ public class BoardServiceImpl implements BoardService {
 	CommonDAO commonDAO;
 	
 	@Override
-	public List boardList() {
+	public int boardCount(Map map) {
 		
-		return commonDAO.list("boardDAO.boardList", null);
+		return (int) commonDAO.selectOne("boardDAO.boardCount", map);
+	}
+	
+	@Override
+	public List boardList(Map map) {
+		
+		return commonDAO.list("boardDAO.boardList", map);
 	}
 
 	@Override

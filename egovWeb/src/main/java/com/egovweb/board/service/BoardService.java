@@ -7,7 +7,9 @@ import egovframework.rte.psl.dataaccess.util.EgovMap;
 
 public interface BoardService {
 
-	public List boardList( ) ;
+	public int boardCount(Map map ) ;
+	
+	public List boardList(Map map) ;
 	
 	public EgovMap boardView(Map map) ;
 	
