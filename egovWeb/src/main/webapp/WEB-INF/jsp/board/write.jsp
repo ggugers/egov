@@ -17,13 +17,22 @@ function result(cnt) {
 		alert("저장 중 오류가 발생하였습니다.");
 	} else {
 		alert("저장되었습니다.");
-		document.location.href="/board/list.do";
+		listPage();
 	}
+}
+function listPage(){
+	document.search.submit();
 }
 </script>
 </head>
 <body>
-board/write.do <br>
+등록 / 수정 <br>
+<form name="search" method="get" action="./list.do">
+	<input type="hidden" name="idx" value="">
+	<input type="hidden" name="pageNo" value='<c:out value="${param.pageNo }" />'>
+	<input type="hidden" name="searchType" value='<c:out value="${param.searchType }" />'>
+	<input type="hidden" name="searchText" value='<c:out value="${param.searchText }" />'>
+</form>
 <form name="frm" method="post" action="/board/save.do" target="processIframe">
 <input type="hidden" name="idx" value="<c:out value="${data.idx }" />">
 <table border="1">
@@ -34,7 +43,7 @@ board/write.do <br>
 </table>
 </form>
 <a href="javascript:;" onclick="saveBoard();">저장</a>
-<a href="/board/list.do">목록</a>
+<a href="javascript:;" onclick="listPage();">목록</a>
 <iframe name="processIframe" boarder="0" style="display:none;"></iframe>
 </body>
 </html>

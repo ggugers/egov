@@ -13,7 +13,7 @@ function result() {
 </head>
 <body onload="result()">
 board/write.do <br>
-<form name="frm" method="post" action="/board/save.do" target="processIframe">
+<form name="frm">
 <input type="hidden" name="cnt" value="<c:out value="${cnt }" />">
 </form>
 </body>

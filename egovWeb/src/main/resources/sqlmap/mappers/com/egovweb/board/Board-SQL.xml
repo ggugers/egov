@@ -1,14 +1,40 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="boardDAO">
-	<select id="boardCount" resultType="int">
+	
+	<sql id="searchSql">
+		 <choose>
+		 	<when test='searchType != null and searchType.equals("1")'>
+		 		<if test="searchText != null">
+		 			AND TITLE LIKE '%' || #{searchText} || '%'
+		 		</if>
+		 	</when>
+			<when test='searchType != null and searchType.equals("2")'>
+		 		<if test="searchText != null">
+		 			AND CONTENT LIKE '%' || #{searchText} || '%'
+		 		</if>
+		 	</when>
+		 	<when test='searchType != null and searchType.equals("3")'>
+		 		<if test="searchText != null">
+		 			AND (TITLE LIKE '%' || #{searchText} || '%' OR CONTENT LIKE '%' || #{searchText} || '%')
+		 		</if>
+		 	</when>
+		 </choose>
+	</sql>
+
+	<select id="boardCount" resultType="int" parameterType="hashMap">
 		 SELECT COUNT(*) FROM BOARD
+		 WHERE 1=1
+		 <include refid="searchSql" />
 	</select>
 
-	<select id="boardList" resultType="egovMap">
+	<select id="boardList" resultType="egovMap" parameterType="hashMap">
 		 SELECT T2.* FROM (
 			 SELECT ROWNUM AS RN, T1.* FROM (
-			 	SELECT IDX, TITLE, TO_CHAR(REG_DATE, 'YYYY.MM.DD.') AS REG_DATE FROM BOARD ORDER BY IDX DESC
+			 	SELECT IDX, TITLE, TO_CHAR(REG_DATE, 'YYYY.MM.DD.') AS REG_DATE FROM BOARD
+			 	WHERE 1=1
+		 		<include refid="searchSql" />
+			 	ORDER BY IDX DESC
 			 ) T1 WHERE ROWNUM &lt;= #{firstIndex} + #{recordCountPerPage}
 		 ) T2 WHERE RN > #{firstIndex}
 	</select>
