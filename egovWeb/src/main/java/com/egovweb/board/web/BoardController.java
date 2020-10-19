@@ -5,6 +5,7 @@ import java.util.Map;
 
 import org.apache.commons.collections.map.HashedMap;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -17,11 +18,16 @@ import egovframework.rte.ptl.mvc.tags.ui.pagination.PaginationInfo;
 @Controller
 public class BoardController {
 
+    @Value("#{resource['file.upload.temp.path']}")
+    private String fileUploadTempPath;
+	
 	@Autowired
 	BoardService boardService;
 	
 	@RequestMapping(value="/board/list.do")
 	public String boardList(Model model, @RequestParam Map param) throws Exception {
+		
+		System.out.println("fileUploadTempPath ==== " + fileUploadTempPath);
 		
 		String pageNo = (String) param.get("pageNo");
 		if (pageNo == null || "".equals(pageNo)) {
