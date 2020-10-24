@@ -5,16 +5,16 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
+<script type="text/javascript">
+function result() {
+	alert(document.frm.cnt.value);
+}
+</script>
 </head>
-<body>
-main.do <br>
-${date } <br>
-<a href="/board/list.do">공지사항</a><br>
-<c:forEach items="${list }" var="map">
-	${map.idx } / ${map.title }<br>
-</c:forEach>
-
-<br>
-<a href="/board/fileUploadFormTest.do">파일업로드</a>
+<body onload="result()">
+board/write.do <br>
+<form name="frm">
+<input type="hidden" name="cnt" value="<c:out value="${cnt }" />">
+</form>
 </body>
 </html>

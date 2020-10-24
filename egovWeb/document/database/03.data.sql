@@ -10,3 +10,6 @@ insert into BOARD (idx, title, content, reg_id, reg_date, upd_id, upd_date)
 values (5, '제목5', '내용5', 'system', SYSDATE, null, null);
 insert into BOARD (idx, title, content, reg_id, reg_date, upd_id, upd_date)
 values (6, '제목6', '내용6', 'system', SYSDATE, null, null);
+
+
+INSERT INTO IDS(TABLE_NAME,NEXT_ID) VALUES ('FILE_ID',1);
